@@ -28,7 +28,7 @@ public class Url {
 
     @NonNull
     @EqualsAndHashCode.Include
-    @Column(name = "url", nullable = false, unique = false)
+    @Column(name = "url", nullable = false, unique = false, columnDefinition = "TEXT")
     private String url;
 
     @Column(name = "shortened", nullable = false, unique = false)

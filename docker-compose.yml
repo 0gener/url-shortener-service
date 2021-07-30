@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  url-shortener-service:
+    build: .
+    ports: 
+      - 8080:8080
+    restart: always
+    depends_on: 
+      - postgresql
+    environment: 
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/url_shortener_service
+      - SPRING_DATASOURCE_USERNAME=url_shortener_service_user
+      - SPRING_DATASOURCE_PASSWORD=123456
+  postgresql:
+    image: postgres:9.6-alpine
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./scripts/db:/docker-entrypoint-initdb.d/
