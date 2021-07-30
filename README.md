@@ -31,4 +31,4 @@ This is a simple URL Shortener that stores some statistics about the shortened U
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-For information about the API just access the [swagger-ui](https://localhost:8080/swagger-ui.html) endpoint.
+For information about the API just access the [swagger-ui](http://localhost:8080/swagger-ui.html) endpoint.
