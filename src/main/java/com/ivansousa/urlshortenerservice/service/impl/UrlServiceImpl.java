@@ -6,26 +6,40 @@ import com.ivansousa.urlshortenerservice.persistence.model.Url;
 import com.ivansousa.urlshortenerservice.persistence.repository.UrlRepository;
 import com.ivansousa.urlshortenerservice.service.UrlService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UrlServiceImpl implements UrlService {
-    @Autowired
     private UrlRepository urlRepository;
 
     @Override
     public String createShorterUrl(URL reqUrl) {
-        return null;
+        Url url = urlRepository.findByUrl(reqUrl.toString()).orElse(null);
+
+        if (url == null)
+            url = new Url(reqUrl.toString());
+
+        url.setShortened(url.getShortened() + 1);
+        url = urlRepository.save(url);
+
+        return url.getId().toString();
     }
 
     @Override
     public Url getUrlById(String id) {
-        return null;
+        Url url = urlRepository.findById(Long.parseLong(id)).orElse(null);
+
+        url.setAccessed((url.getAccessed() + 1));
+        urlRepository.save(url);
+
+        return url;
     }
 
     @Override
     public Url getUrl(URL url) {
-        return null;
+        return urlRepository.findByUrl(url.toString()).orElse(null);
     }
 }
