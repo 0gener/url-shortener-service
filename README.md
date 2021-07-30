@@ -26,8 +26,6 @@ This is a simple URL Shortener that stores some statistics about the shortened U
    docker-compose up -d --build
    ```
 
-
-
 <!-- USAGE EXAMPLES -->
 ## Usage
 
