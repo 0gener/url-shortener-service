@@ -11,9 +11,10 @@
 	<artifactId>url-shortener-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>url-shortener-service</name>
-	<description>Demo project for Spring Boot</description>
+	<description>URL Shortener Service</description>
 	<properties>
 		<java.version>11</java.version>
+		<springdoc.version>1.5.10</springdoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,6 +34,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>

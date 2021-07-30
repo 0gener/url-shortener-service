@@ -17,12 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "URL")
 @RequestMapping(path = "/url")
 public class UrlController {
     @Autowired
     public UrlService service;
 
+    @Operation(summary = "Create a shorter version of a URL")
+    @ApiResponse(responseCode = "201", description = "Created", content = @Content(schema = @Schema(implementation = CreateShorterUrlResponse.class)))
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<CreateShorterUrlResponse> createShorterUrl(@Valid @RequestBody CreateShorterUrlRequest body) {
         String id = service.createShorterUrl(body.getUrl());
@@ -30,6 +39,8 @@ public class UrlController {
         return new ResponseEntity<CreateShorterUrlResponse>(new CreateShorterUrlResponse(id), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Redirect to original URL")
+    @ApiResponse(responseCode = "302", description = "Succesfully redirected to original URL", content = @Content)
     @GetMapping(path = "/{id}")
     public RedirectView redirectUrl(@PathVariable("id") String id) {
         String originalUrl = service.getUrlById(id).getUrl();
