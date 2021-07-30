@@ -5,7 +5,7 @@ import java.net.URL;
 import com.ivansousa.urlshortenerservice.persistence.model.Url;
 import com.ivansousa.urlshortenerservice.persistence.repository.UrlRepository;
 import com.ivansousa.urlshortenerservice.service.UrlService;
-import com.ivansousa.urlshortenerservice.util.NumberUtils;
+import com.ivansousa.urlshortenerservice.util.Base62Utils;
 
 import org.springframework.stereotype.Service;
 
@@ -26,12 +26,12 @@ public class UrlServiceImpl implements UrlService {
         url.setShortened(url.getShortened() + 1);
         url = urlRepository.save(url);
 
-        return NumberUtils.encodeToBase62(url.getId());
+        return Base62Utils.encode(url.getId());
     }
 
     @Override
     public Url getUrlById(String id) {
-        Url url = urlRepository.findById(NumberUtils.decodeFromBase62(id)).orElse(null);
+        Url url = urlRepository.findById(Base62Utils.decode(id)).orElse(null);
 
         url.setAccessed((url.getAccessed() + 1));
         urlRepository.save(url);

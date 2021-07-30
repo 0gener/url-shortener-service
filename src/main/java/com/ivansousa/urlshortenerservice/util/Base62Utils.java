@@ -1,9 +1,9 @@
 package com.ivansousa.urlshortenerservice.util;
 
-public class NumberUtils {
+public class Base62Utils {
     private static final String BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public static String encodeToBase62(Long num) {
+    public static String encode(Long num) {
         if (num.equals(0L))
             return BASE62.substring(0, 1);
 
@@ -18,7 +18,7 @@ public class NumberUtils {
         return builder.reverse().toString();
     }
 
-    public static Long decodeFromBase62(String base62) {
+    public static Long decode(String base62) {
         Long num = 0L;
 
         for (int i = 0; i < base62.length(); i++) {
